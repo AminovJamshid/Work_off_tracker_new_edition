@@ -1,5 +1,5 @@
 <?php
-class work_off_tracker2 {
+class work_off_tracker_finally {
     private $pdo;
 
     public function __construct($servername, $username, $password, $dbname) {
@@ -57,7 +57,8 @@ class work_off_tracker2 {
 
             $workingDurationSeconds = $this->calculate_seconds_to_hour($workingDurationSeconds);
 
-            $sql = "INSERT INTO Daily (arrived_at, leaved_at, working_duration, req_work_off_time, entitled, req_work_off_time_sum, entitled_time_sum) VALUES (:arrived_at, :leaved_at, :working_duration, :req_work_off_time, :entitled, :req_work_off_time_sum, :entitled_time_sum)";
+            $sql = "INSERT INTO Daily (arrived_at, leaved_at, working_duration, req_work_off_time, entitled, req_work_off_time_sum, entitled_time_sum) 
+                    VALUES (:arrived_at, :leaved_at, :working_duration, :req_work_off_time, :entitled, :req_work_off_time_sum, :entitled_time_sum)";
             $stmt = $this->pdo->prepare($sql);
             $stmt->bindParam(':arrived_at', $arrivedatFormatted);
             $stmt->bindParam(':leaved_at', $leavedatFormatted);
@@ -126,7 +127,7 @@ $username = "root";
 $password = "1234";
 $dbname = "work_off_tracker";
 
-$workOffTracker = new work_off_tracker2($servername, $username, $password, $dbname);
+$workOffTracker = new work_off_tracker_finally($servername, $username, $password, $dbname);
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (isset($_POST["arrived_at"]) && isset($_POST["leaved_at"])) {
